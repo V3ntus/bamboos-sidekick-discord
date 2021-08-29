@@ -1,0 +1,28 @@
+### BEGIN API KEY SETUP
+# Obtain bot key during discord bot app setup. Refer to GitHub repo for more details.
+TOKEN = 'DISCORD_TOKEN_HERE'
+
+# Obtain via https://docs.genius.com/. Must create a Genius account in order to retrieve auth token.
+GENIUS_TOKEN = 'GENIUS_TOKEN_HERE'
+
+# OpenWeather Setup
+OWAPI = "OPENWEATHER_TOKEN_HERE"
+
+# Radarr api (find it at your Radarr control panel)
+rapi = "RADARR_TOKEN_HERE"
+
+# TMDB api
+tmdbapi = "TMDB_TOKEN_HERE"
+### END
+
+# for qBitTorrent and Radarr
+EXT_HOST = "192.168.137.152"
+
+# qBitTorrent
+QBIT_USER = "admin"
+QBIT_PASS = ""
+QBIT_PORT = "8080"
+
+# Radarr
+rhost = EXT_HOST
+rport = "7878"
