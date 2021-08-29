@@ -1,0 +1,6 @@
+discord>=1.7.3
+lyricsgenius>=3.0.1
+openweather>=0.11
+requests>=2.26.0
+qbittorrent-api>=2021.5.22
+azlyrics>=1.3.2
