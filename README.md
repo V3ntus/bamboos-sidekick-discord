@@ -7,6 +7,25 @@
 * Can interface with Radarr and TMDB
 * Can grab weather for specific cities and postal codes
 
+### Bot commands:
+**Genius Commands**:  
+`b!lyricsfor / b!lf (artist) - (song)` = Get lyrics from Genius for specified song  
+`b!genius / b!g (artist) - (song)` = Get a Genius page link for a song  
+  
+**Weather Commands**:  
+`b!setlocation (city/ZIP)` = Set your user's location  
+`b!weather [city/ZIP]` = Get location. Requires city/ZIP if you have not set your location  
+  
+**qBitTorrent Local Commands**  
+`qb!info` = request qBitTorrent info for specified host on my LAN  
+`qb!all` = get all torrent info for specified host on my LAN  
+  
+**Radarr Local Commands**  
+`r!info` = get info for Radarr instance for specified host on my LAN  
+`r!get (tmdb)` = get info for a specific movie using a TMDB ID number  
+  
+This bot also listens for certain phrases and the Chuu bot to provide lyrics passively.  
+
 ---
 
 ## Setup
