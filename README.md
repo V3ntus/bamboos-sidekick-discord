@@ -87,6 +87,7 @@ python3 bot.py
 * ^ Radarr as well
 * The weather system might need to be revamped
 
+## Contributors:
 <a href="https://github.com/V3ntus/bamboos-sidekick-discord/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=V3ntus/bamboos-sidekick-discord" />
 </a>
