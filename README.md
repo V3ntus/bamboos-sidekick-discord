@@ -86,3 +86,9 @@ python3 bot.py
 * Need to add more qBTT functions. It's pretty boring
 * ^ Radarr as well
 * The weather system might need to be revamped
+
+<a href="https://github.com/V3ntus/bamboos-sidekick-discord/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=V3ntus/bamboos-sidekick-discord" />
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
