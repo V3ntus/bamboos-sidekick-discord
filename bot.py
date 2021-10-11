@@ -15,6 +15,8 @@ import time, multiprocessing, threading
 import qbittorrentapi
 from azlyrics.azlyrics import lyrics as az_lyrics
 
+from src import db
+
 # OpenWeather setup
 ow = openweather.OpenWeather()
 owurl = "http://api.openweathermap.org/data/2.5/weather?"
