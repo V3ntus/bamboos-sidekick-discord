@@ -316,20 +316,16 @@ async def getWeatherForCity(city, message):
 
         return msgRasEmbed
 
-# Might need a local hosted database for this instead
-# Incomplete code. Don't use
-#@client.event
-#async def setLocation(location, user):
-#    if path.exists("locations.txt") != True:
-#        locFile = open("locations.txt", "a")
-#        locFile.close()
-#
-#    with open("locations.txt", "a") as locFile: # open file, check all lines, see if userid is found in line. if so, overwrite
-#        # store into temp array
-#        tmpList = locFile.read()
-#        for line in locFile:
-#            line = line.strip()
-#            if user in
+@client.event
+async def setLocation(discordID, discordUsername, location):
+    print(f"[@] {discordUsername} executed b!setlocation with args: {location} and user id {discordID}")
+    with db.Weather() as weatherDB:
+        try:
+            weatherDB.insert_data(discordID, discordUsername, location)
+        except db.UniqueException:
+            weatherDB.update_data(discordID, discordUsername, location)
+            return "Updated your location!"
+        return "Added your location! Next time, just execute `b!weather` without the location argument to use your stored location"
 
 @client.event
 async def on_ready():
@@ -433,8 +429,19 @@ async def on_message(message):
                 # if userID has location stored: # incomplete code
                 #   get weather
                 # else:
-                await message.channel.send("Sorry <@%s>, please specify a city or ZIP code." % userID)
-                print("[@] " + str(message.author) + " - executed getWeatherForCity command with an arg error")
+                with db.Weather() as weatherDB:
+                    try:
+                        location = weatherDB.select_data(userID)
+                    except db.QueryFailed:
+                        await message.channel.send("Sorry <@%s>, we couldn't find you in the database. Please specify a city or ZIP code, or set your location with `b!setlocation`" % userID)
+                        print("[@] " + str(message.author) + " - executed getWeatherForCity command but was not found in database")
+                        return
+                    await message.channel.send("Getting weather for `{}`...".format(location))
+                    print("[@] " + str(message.author) + " - executed getWeatherForCity command without args")
+                    try:
+                        await message.channel.send(embed=await getWeatherForCity(location, message))
+                    except Exception as e:
+                            await message.channel.send("Could not get weather\n```" + str(e) + "```")
 
             else:
                 print("[@] " + str(message.author) + " - executed getWeatherForCity command")
@@ -454,8 +461,7 @@ async def on_message(message):
             else:
                 print("[@] " + str(message.author) + " - executed setlocation command")
                 args = message.content.lower().replace("b!setlocation", "").replace("b!sl", "").lstrip().rstrip()
-                #await message.channel.send(await setLocation(args, userID))
-                await message.channel.send("Command not coded in yet heh")
+                await message.channel.send(await setLocation(discordID=userID, discordUsername=str(message.author)[:-5], location=args))
 
         if "Chuu" in str(message.author): # Check if we can link a Genius link from Chuu's !lyrics command. Checks if it is an embed
             # find song from embed author
