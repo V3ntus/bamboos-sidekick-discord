@@ -148,7 +148,7 @@ async def getQbtAppInfo():
         for k,v in qbt_client.app.build_info.items():
             qbOtherDesc += f'{k}: {v}; '
     except Exception as e:
-        await message.channel.send(f"qBT info request failed with: ```{e}```")
+        return await message.channel.send(f"qBT info request failed with: ```{e}```")
     qbMsgEmbed = discord.Embed(title="qBittorrent Application Info", description="", color=0x37ff00)
     qbMsgEmbed.set_author(name="qBitTorrent API")
     qbMsgEmbed.add_field(name="Client App version:", value=qbt_client.app.version, inline=True)
@@ -167,6 +167,7 @@ async def getQbtAllTorrents():
 QBT Torrent List:\n
 """
     try:
+        i = 1
         for torrent in qbt_client.torrents_info():
             #qbtTorrentList += f'{torrent.name} {torrent.state}'
             if torrent.state == "downloading":
@@ -194,11 +195,13 @@ QBT Torrent List:\n
             else:
                 qbtTorrentState = torrent.state
             torrentEntry = f'[H]: {torrent.hash[-6:]} --> {torrent.name} // State: {qbtTorrentState}'
-            qbtMessage += "     └: %s \n" % torrentEntry
+            qbtMessage += f"{i}.%s \n" % torrentEntry
+            i += 1
+        qbtMsgEmbed = discord.Embed(title="qBittorrent all Torrents", description=qbtMessage, color=0x37ff00)
     except Exception as e:
-        await message.channel.send(f"Failed to request torrent list: ```{e}```")
+        return await message.channel.send(f"Failed to request torrent list: ```{e}```")
 
-    return qbtMessage
+    return qbtMsgEmbed
 
 #@client.event
 #async def getQbtTorrentInfo(args):
